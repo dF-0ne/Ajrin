@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Special For Ajrinnnn<3</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💘</text></svg>">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💘</text></svg>">
+
     <style>
         /* Import Font Romantis */
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap');
@@ -112,9 +114,8 @@
             background-color: #ff4d6d;
         }
 
-        /* Tombol Kabur (Penyesuaian Efek) */
+        /* Tombol Kabur */
         #btnNggak {
-            /* Menggunakan transform transition agar lompatannya mulus */
             transition: transform 0.2s ease-out; 
             z-index: 100;
         }
@@ -150,37 +151,25 @@
             border-radius: 15px;
             border-left: 5px solid #ff4d6d;
             text-align: left;
-            max-height: 60vh;
+            max-height: 50vh;
             overflow-y: auto;
             white-space: pre-wrap; 
+            color: #444;
+            font-size: 1.05rem;
         }
 
-        /* --- Penyesuaian Responsif Ekstra untuk Layar HP --- */
+        /* --- Penyesuaian Responsif Layar HP --- */
         @media (max-width: 480px) {
-            .card {
-                padding: 25px; /* Mengurangi jarak di dalam kotak agar tidak sempit */
-            }
-
-            h1 {
-                font-size: 2rem; /* Mengecilkan ukuran font judul sedikit */
-            }
-
-            .btn-container {
-                flex-direction: column; /* Mengubah tombol menjadi atas-bawah jika layar sangat sempit */
-                gap: 15px;
-            }
-
-            button {
-                width: 100%; /* Tombol memenuhi lebar kontainer */
-                padding: 15px;
-            }
-
-            .letter-box {
-                padding: 15px;
-                font-size: 0.95rem; /* Menyesuaikan ukuran teks surat */
-            }
+            .card { padding: 25px; }
+            h1 { font-size: 2rem; }
+            .btn-container { flex-direction: column; gap: 15px; }
+            button { width: 100%; padding: 15px; }
+            .letter-box { padding: 15px; font-size: 0.95rem; }
         }
     </style>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -191,7 +180,7 @@
         <p>Aku Dhony punya sesuatu buat kamu Ajrin. Kamu pasti udah terima web ini dari Dhony ya? mau lihat sekarang?</p>
         <div class="btn-container">
             <button onclick="goToPortal2()">Mau banget!</button>
-            <button id="btnNggak">Nggaa Wlee</button>
+            <button id="btnNggak">Ngga Wlee</button>
         </div>
     </div>
 
@@ -205,16 +194,15 @@
 
     <div class="card" id="mainPage" style="max-width: 700px;">
         <h1>Teruntuk kamu Ajrin, ada sedikit hal yang mau aku sampein sebagai Dhony secara pribadi... ❤️</h1>
-        <div class="letter-box" id="pesanDisplay">
-            </div>
+        <div class="letter-box" id="pesanDisplay">Memuat pesan penuh cinta... ✨</div>
     </div>
 
     <div class="card" id="adminPage" style="max-width: 700px;">
         <h1>Halaman Admin ⚙️</h1>
         <p>Tulis pesan terima kasih dan maaf kamu di sini.</p>
         <textarea id="adminInput" rows="10" placeholder="Ketik pesan panjangmu di sini..."></textarea>
-        <button onclick="saveMessage()">Simpan Pesan</button>
-        <p id="saveStatus" style="color: #2a9d8f; font-weight: 600; display: none;">Pesan berhasil disimpan! ✨</p>
+        <button onclick="saveMessage()">Simpan Pesan Permanen</button>
+        <p id="saveStatus" style="color: #2a9d8f; font-weight: 600; display: none; margin-top: 5px;">Pesan berhasil diperbarui di Cloud! ✨</p>
         <button onclick="location.reload()" style="background-color: #6c757d; margin-top: 10px;">Kembali ke Awal</button>
     </div>
 
@@ -224,7 +212,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyBTbMk5rOhiCopo1AEKvp5JcJOf5Kz9Xwg",
             authDomain: "for-my-love-7127.firebaseapp.com",
-            databaseURL: "https://for-my-love-7127-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            databaseURL: "https://for-my-love-7127-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "for-my-love-7127",
             storageBucket: "for-my-love-7127.firebasestorage.app",
             messagingSenderId: "1033060229141",
@@ -235,34 +223,39 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // === 2. Konfigurasi PIN ===
-        const PIN_USER = "090126"; 
-        const PIN_ADMIN = "426859"; 
+        // === 2. KONFIGURASI PIN KELUARGA ===
+        const PIN_USER = "0214"; 
+        const PIN_ADMIN = "1234"; 
 
         const defaultMessage = "Terima kasih sudah hadir di hidupku. Maaf jika selama ini aku masih banyak kurangnya. Aku sangat mencintaimu...";
 
         window.onload = () => {
-            let savedMsg = localStorage.getItem('pesanRomantis');
-            if (!savedMsg) {
-                localStorage.setItem('pesanRomantis', defaultMessage);
-            }
             createFloatingDecorations();
+            
+            // Mengambil & mendengarkan perubahan data secara real-time dari Cloud Firebase
+            db.ref('pesanRomantis').on('value', (snapshot) => {
+                const dataPesan = snapshot.val();
+                if (dataPesan) {
+                    document.getElementById('pesanDisplay').innerText = dataPesan;
+                    document.getElementById('adminInput').value = dataPesan;
+                } else {
+                    // Jika database cloud masih kosong saat pertama kali dibuat
+                    db.ref('pesanRomantis').set(defaultMessage);
+                    document.getElementById('pesanDisplay').innerText = defaultMessage;
+                    document.getElementById('adminInput').value = defaultMessage;
+                }
+            });
         };
 
-        // === 2. Logika Portal 1 (Tombol Kabur Diperbarui) ===
+        // === 3. Logika Portal 1 (Tombol Kabur) ===
         const btnNggak = document.getElementById('btnNggak');
 
         function moveButton() {
-            // Menentukan arah lompatan acak (antara -100px hingga 100px) dari posisi awalnya
             const x = (Math.random() - 0.5) * 200; 
             const y = (Math.random() - 0.5) * 200; 
-            
-            // Menggunakan transform agar tombol tidak merusak elemen sekitarnya
-            // dan tetap berada dalam jarak pandang layar
             btnNggak.style.transform = `translate(${x}px, ${y}px)`;
         }
 
-        // Memicu gerakan saat kursor disentuh atau disorot
         btnNggak.addEventListener('mouseover', moveButton);
         btnNggak.addEventListener('touchstart', moveButton);
 
@@ -271,7 +264,7 @@
             document.getElementById('portal2').classList.add('active');
         }
 
-        // === 3. Logika Portal 2 (Verifikasi PIN) ===
+        // === 4. Logika Portal 2 (Verifikasi PIN) ===
         function verifyPin() {
             const input = document.getElementById('pinInput').value;
             const errorMsg = document.getElementById('errorMsg');
@@ -279,18 +272,11 @@
             if (input === PIN_USER) {
                 errorMsg.style.display = 'none';
                 document.getElementById('portal2').classList.remove('active');
-                
-                const pesan = localStorage.getItem('pesanRomantis');
-                document.getElementById('pesanDisplay').innerText = pesan;
-                
                 document.getElementById('mainPage').classList.add('active');
             } 
             else if (input === PIN_ADMIN) {
                 errorMsg.style.display = 'none';
                 document.getElementById('portal2').classList.remove('active');
-                
-                document.getElementById('adminInput').value = localStorage.getItem('pesanRomantis');
-                
                 document.getElementById('adminPage').classList.add('active');
             } 
             else {
@@ -298,19 +284,23 @@
             }
         }
 
-        // === 4. Logika Halaman Admin ===
+        // === 5. Logika Halaman Admin (Simpan ke Firebase Cloud) ===
         function saveMessage() {
             const newMsg = document.getElementById('adminInput').value;
-            localStorage.setItem('pesanRomantis', newMsg);
             
-            const status = document.getElementById('saveStatus');
-            status.style.display = 'block';
-            setTimeout(() => {
-                status.style.display = 'none';
-            }, 3000);
+            // Menyimpan teks baru ke Firebase Cloud
+            db.ref('pesanRomantis').set(newMsg)
+            .then(() => {
+                const status = document.getElementById('saveStatus');
+                status.style.display = 'block';
+                setTimeout(() => { status.style.display = 'none'; }, 3000);
+            })
+            .catch((error) => {
+                alert("Waduh, gagal menyimpan ke cloud: " + error.message);
+            });
         }
 
-        // === 5. Efek Bunga & Hati Mengambang ===
+        // === 6. Efek Bunga & Hati Mengambang ===
         function createFloatingDecorations() {
             const container = document.getElementById('bgContainer');
             const items = ['🌸', '💖', '✨', '🤍', '🌹', '🦋','🎈','🎆','🎇','🎀','🎁','✨','💍','💐','🌺','🌼','💕','💘','💝','💟','💗','💓','❣'];
