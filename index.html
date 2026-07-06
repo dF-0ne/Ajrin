@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special For Ajrinnnn<3</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💘</text></svg>">
+    <style>
+        /* Import Font Romantis */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffe6ea 0%, #fdfbfb 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Dekorasi Hati & Bunga Mengambang di Background */
+        .floating-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-item {
+            position: absolute;
+            font-size: 24px;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Styling Utama Container/Card */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
+            text-align: center;
+            z-index: 10;
+            max-width: 500px;
+            width: 90%;
+            display: none; 
+            flex-direction: column;
+            gap: 20px;
+            border: 2px solid #ffb6c1;
+        }
+
+        .active {
+            display: flex;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff4d6d;
+            font-size: 2.5rem;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Styling Tombol */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            color: white;
+            background-color: #ff758f;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 117, 143, 0.4);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff4d6d;
+        }
+
+        /* Tombol Kabur (Penyesuaian Efek) */
+        #btnNggak {
+            /* Menggunakan transform transition agar lompatannya mulus */
+            transition: transform 0.2s ease-out; 
+            z-index: 100;
+        }
+
+        /* Styling Form & Input */
+        input[type="password"], textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ffccd5;
+            border-radius: 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        input[type="password"]:focus, textarea:focus {
+            border-color: #ff758f;
+        }
+
+        .error-msg {
+            color: #d90429;
+            font-size: 0.9rem;
+            margin-top: -10px;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Styling Kotak Surat */
+        .letter-box {
+            background: #fff0f3;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #ff4d6d;
+            text-align: left;
+            max-height: 60vh;
+            overflow-y: auto;
+            white-space: pre-wrap; 
+        }
+
+        /* --- Penyesuaian Responsif Ekstra untuk Layar HP --- */
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px; /* Mengurangi jarak di dalam kotak agar tidak sempit */
+            }
+
+            h1 {
+                font-size: 2rem; /* Mengecilkan ukuran font judul sedikit */
+            }
+
+            .btn-container {
+                flex-direction: column; /* Mengubah tombol menjadi atas-bawah jika layar sangat sempit */
+                gap: 15px;
+            }
+
+            button {
+                width: 100%; /* Tombol memenuhi lebar kontainer */
+                padding: 15px;
+            }
+
+            .letter-box {
+                padding: 15px;
+                font-size: 0.95rem; /* Menyesuaikan ukuran teks surat */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-bg" id="bgContainer"></div>
+
+    <div class="card active" id="portal1">
+        <h1>Hai, Wahai Ajrin yang Cantik... 🌸</h1>
+        <p>Aku Dhony punya sesuatu buat kamu Ajrin. Kamu pasti udah terima web ini dari Dhony ya? mau lihat sekarang?</p>
+        <div class="btn-container">
+            <button onclick="goToPortal2()">Mau banget!</button>
+            <button id="btnNggak">Nggaa Wlee</button>
+        </div>
+    </div>
+
+    <div class="card" id="portal2">
+        <h1>Gerbang Into My Heart🔐</h1>
+        <p>Masukkan PIN spesial untuk membuka pesan ini.</p>
+        <input type="password" id="pinInput" placeholder="Ketik PIN di sini...">
+        <p class="error-msg" id="errorMsg">IHHH, PIN-nya salah. Coba ingat-ingat lagi! 💔</p>
+        <button onclick="verifyPin()">Buka Kunci</button>
+    </div>
+
+    <div class="card" id="mainPage" style="max-width: 700px;">
+        <h1>Teruntuk kamu Ajrin, ada sedikit hal yang mau aku sampein sebagai Dhony secara pribadi... ❤️</h1>
+        <div class="letter-box" id="pesanDisplay">
+            </div>
+    </div>
+
+    <div class="card" id="adminPage" style="max-width: 700px;">
+        <h1>Halaman Admin ⚙️</h1>
+        <p>Tulis pesan terima kasih dan maaf kamu di sini.</p>
+        <textarea id="adminInput" rows="10" placeholder="Ketik pesan panjangmu di sini..."></textarea>
+        <button onclick="saveMessage()">Simpan Pesan</button>
+        <p id="saveStatus" style="color: #2a9d8f; font-weight: 600; display: none;">Pesan berhasil disimpan! ✨</p>
+        <button onclick="location.reload()" style="background-color: #6c757d; margin-top: 10px;">Kembali ke Awal</button>
+    </div>
+
+    <script>
+        // === 1. Konfigurasi PIN ===
+        const PIN_USER = "090126"; 
+        const PIN_ADMIN = "426859"; 
+
+        const defaultMessage = "Terima kasih sudah hadir di hidupku. Maaf jika selama ini aku masih banyak kurangnya. Aku sangat mencintaimu...";
+
+        window.onload = () => {
+            let savedMsg = localStorage.getItem('pesanRomantis');
+            if (!savedMsg) {
+                localStorage.setItem('pesanRomantis', defaultMessage);
+            }
+            createFloatingDecorations();
+        };
+
+        // === 2. Logika Portal 1 (Tombol Kabur Diperbarui) ===
+        const btnNggak = document.getElementById('btnNggak');
+
+        function moveButton() {
+            // Menentukan arah lompatan acak (antara -100px hingga 100px) dari posisi awalnya
+            const x = (Math.random() - 0.5) * 200; 
+            const y = (Math.random() - 0.5) * 200; 
+            
+            // Menggunakan transform agar tombol tidak merusak elemen sekitarnya
+            // dan tetap berada dalam jarak pandang layar
+            btnNggak.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // Memicu gerakan saat kursor disentuh atau disorot
+        btnNggak.addEventListener('mouseover', moveButton);
+        btnNggak.addEventListener('touchstart', moveButton);
+
+        function goToPortal2() {
+            document.getElementById('portal1').classList.remove('active');
+            document.getElementById('portal2').classList.add('active');
+        }
+
+        // === 3. Logika Portal 2 (Verifikasi PIN) ===
+        function verifyPin() {
+            const input = document.getElementById('pinInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (input === PIN_USER) {
+                errorMsg.style.display = 'none';
+                document.getElementById('portal2').classList.remove('active');
+                
+                const pesan = localStorage.getItem('pesanRomantis');
+                document.getElementById('pesanDisplay').innerText = pesan;
+                
+                document.getElementById('mainPage').classList.add('active');
+            } 
+            else if (input === PIN_ADMIN) {
+                errorMsg.style.display = 'none';
+                document.getElementById('portal2').classList.remove('active');
+                
+                document.getElementById('adminInput').value = localStorage.getItem('pesanRomantis');
+                
+                document.getElementById('adminPage').classList.add('active');
+            } 
+            else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // === 4. Logika Halaman Admin ===
+        function saveMessage() {
+            const newMsg = document.getElementById('adminInput').value;
+            localStorage.setItem('pesanRomantis', newMsg);
+            
+            const status = document.getElementById('saveStatus');
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+
+        // === 5. Efek Bunga & Hati Mengambang ===
+        function createFloatingDecorations() {
+            const container = document.getElementById('bgContainer');
+            const items = ['🌸', '💖', '✨', '🤍', '🌹', '🦋','🎈','🎆','🎇','🎀','🎁','✨','💍','💐','🌺','🌼','💕','💘','💝','💟','💗','💓','❣'];
+            
+            for (let i = 0; i < 100; i++) {
+                let div = document.createElement('div');
+                div.className = 'bg-item';
+                div.innerText = items[Math.floor(Math.random() * items.length)];
+                
+                div.style.left = `${Math.random() * 100}vw`;
+                div.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                div.style.animationDelay = `${Math.random() * 5}s`;
+                div.style.fontSize = `${Math.random() * 20 + 15}px`;
+                
+                container.appendChild(div);
+            }
+        }
+    </script>
+</body>
+</html>
